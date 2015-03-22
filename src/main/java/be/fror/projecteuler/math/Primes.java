@@ -6,12 +6,13 @@
 package be.fror.projecteuler.math;
 
 import com.google.common.base.Supplier;
-import static com.google.common.base.Suppliers.*;
-import static com.google.common.primitives.Ints.*;
 
-import java.util.ArrayList;
+import static com.google.common.base.Suppliers.*;
+
 import static java.util.Arrays.*;
-import java.util.Collection;
+
+import be.fror.projecteuler.collect.IntList;
+
 
 /**
  *
@@ -47,7 +48,7 @@ public final class Primes {
     }
     final int upperBoundSquareRoot = (int) Math.sqrt(upperBound);
     final boolean[] sieveBool = new boolean[upperBound + 1];
-    final Collection<Integer> primes = new ArrayList<>(upperBound);
+    final IntList primes = new IntList(upperBound);
     for (int candidate = 2; candidate <= upperBoundSquareRoot; candidate++) {
       if (!sieveBool[candidate]) {
         primes.add(candidate);
@@ -61,7 +62,7 @@ public final class Primes {
         primes.add(candidate);
       }
     }
-    return toArray(primes);
+    return primes.toArray();
   }
 
   // Currently, limit is sqrt(Integer.MAX_VALUE)
