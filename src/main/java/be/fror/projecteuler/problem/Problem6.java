@@ -28,21 +28,20 @@ package be.fror.projecteuler.problem;
  * <p>
  * Find the difference between the sum of the squares of the first one hundred natural numbers and
  * the square of the sum.</p>
- * 
+ *
  * @author Olivier Grégoire &lt;fror@users.noreply.github.com&gt;
  */
 public class Problem6 extends AbstractProblem {
 
   @Override
   public Object solve() {
-    final int from = 1;
     final int to = 100;
-    int squareOfSum = (to * (to + 1) - from * (from - 1)) / 2;
+
+    int squareOfSum = to * (to + 1) / 2;
     squareOfSum *= squareOfSum;
-    int sumOfSquares = 0;
-    for (int x = from; x <= to; x++) {
-      sumOfSquares += x * x;
-    }
+
+    int sumOfSquares = to * (to + 1) * (2 * to + 1) / 6;
+
     return squareOfSum - sumOfSquares;
   }
 }

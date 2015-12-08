@@ -17,8 +17,8 @@ public class Problem19 extends AbstractProblem {
 
   @Override
   public Object solve() {
-    LocalDate start = LocalDate.of(1901, Month.JANUARY, 1);
-    LocalDate end = LocalDate.of(2000, Month.DECEMBER, 31);
+    final LocalDate start = LocalDate.of(1901, Month.JANUARY, 1);
+    final LocalDate end = LocalDate.of(2000, Month.DECEMBER, 31);
 
     int count = 0;
     for (LocalDate date = start; date.isBefore(end); date = date.plusMonths(1)) {

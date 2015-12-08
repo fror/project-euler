@@ -25,13 +25,13 @@ public class Problem32 extends AbstractProblem {
       { // transform n into its digitset as bits.
         int x = n;
         do {
-          int tmp = x / 10;
+          final int tmp = x / 10;
           bits |= 1 << (x - tmp * 10);
           x = tmp;
         } while (x > 0);
       }
 
-            // Add n (as bits) as divisor of all of its multiples:
+      // Add n (as bits) as divisor of all of its multiples:
       //   . except n
       //   . skip each multiple < 1234
       // div[x][0] always contains the number of divisors so far (bar 1)
@@ -39,14 +39,14 @@ public class Problem32 extends AbstractProblem {
         div[m][++div[m][0]] = bits;
       }
 
-            // Basic analysis says that any n will be higher than 1234.
+      // Basic analysis says that any n will be higher than 1234.
       // Skip if n contains a 0, it's more than 1/4 of cases!
       if (n >= 1234 && (bits & 1) == 0) {
-                // Speed comparison seems to show that this is more efficient
+        // Speed comparison seems to show that this is more efficient
         // than using div[n] everywhere.
         final int[] d = div[n];
         for (int start = 1, end = d[0]; start < end; start++, end--) {
-                    // Analysis says that bitwise-or is sufficient.
+          // Analysis says that bitwise-or is sufficient.
           // Another possibility is using xor.
           if ((bits | d[start] | d[end]) == PANDIGITAL) {
             sum += n;
