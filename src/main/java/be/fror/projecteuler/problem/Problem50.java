@@ -32,7 +32,6 @@ public class Problem50 extends AbstractProblem {
       sum += primes[maxIndex++];
     }
     sum -= primes[--maxIndex];
-
     for (int reduction = 1; reduction < maxIndex; reduction++) {
       for (int left = reduction, right = 0; left >= 0; left--, right++) {
         int s = sum;
