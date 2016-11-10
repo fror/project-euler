@@ -5,12 +5,14 @@
  */
 package be.fror.projecteuler.problem;
 
-import com.google.common.io.CharSource;
 import com.google.common.io.Resources;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * In the card game poker, a hand consists of five cards and are ranked, from lowest to highest, in
@@ -61,6 +63,130 @@ public class Problem54 extends AbstractProblem {
 
   @Override
   public Object solve() {
-    return null;
+    int count = 0;
+    for (String line : lines) {
+      Card[] cards = (Card[]) Arrays.stream(line.split(" ")).map(Card::of).toArray();
+      Hand left = new Hand(Arrays.copyOfRange(cards, 0, 5));
+      Hand right = new Hand(Arrays.copyOfRange(cards, 5, 10));
+      if (handComparator().compare(left, right) > 0) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  enum Rank {
+    TWO('2'),
+    THREE('3'),
+    FOUR('4'),
+    FIVE('5'),
+    SIX('6'),
+    SEVEN('7'),
+    EIGHT('8'),
+    NINE('9'),
+    TEN('T'),
+    JACK('J'),
+    QUEEN('Q'),
+    KING('K'),
+    ACE('A');
+    char character;
+
+    Rank(char c) {
+      character = c;
+    }
+
+    static Rank of(char character) {
+      for (Rank rank : values()) {
+        if (rank.character == character) {
+          return rank;
+        }
+      }
+      throw new IllegalArgumentException();
+    }
+
+  }
+
+  enum Color {
+    SPADES('S'),
+    HEART('H'),
+    DIAMOND('D'),
+    CLUB('C');
+    char character;
+
+    Color(char c) {
+      character = c;
+    }
+
+    static Color of(char character) {
+      for (Color color : values()) {
+        if (color.character == character) {
+          return color;
+        }
+      }
+      throw new IllegalArgumentException();
+    }
+  }
+
+  static class Card {
+
+    final Rank rank;
+    final Color color;
+
+    Card(Rank rank, Color color) {
+      this.rank = rank;
+      this.color = color;
+    }
+
+    static Card of(String s) {
+      return new Card(Rank.of(s.charAt(0)), Color.of(s.charAt(1)));
+    }
+
+    static Comparator<Card> rankComparator() {
+      return Comparator.comparing(c -> c.rank);
+    }
+  }
+
+  static class Hand {
+
+    Card[] cards;
+    boolean flush;
+    boolean royal;
+    boolean straight;
+    Map<Rank, Integer> kinds = new EnumMap<>(Rank.class);
+
+    Hand(Card[] cards) {
+      Arrays.sort(cards, Card.rankComparator().reversed());
+      this.cards = cards;
+      flush = Arrays.stream(cards).allMatch(c -> cards[0].color == c.color);
+      royal = cards[0].rank == Rank.ACE;
+      straight = cards[0].rank.ordinal() - cards[cards.length - 1].rank.ordinal() == cards.length - 1
+          && Arrays.stream(cards).map(c -> c.rank).distinct().count() == cards.length;
+      for (Rank rank : Rank.values()) {
+        kinds.put(rank, 0);
+      }
+      for (Card c : cards) {
+        kinds.put(c.rank, kinds.get(c.rank) + 1);
+      }
+    }
+
+    public int[] score() {
+      if (royal && flush) {
+        return new int[]{9, 0};
+      }
+      if (straight && flush) {
+        return new int[]{8, cards[0].rank.ordinal()};
+      }
+      if ()
+    }
+  }
+
+  static Comparator<Hand> scoreComparator() {
+    return (left, right) -> {
+      int[] leftScore = left.score();
+      int[] rightScore = right.score();
+
+
+      return 1;
+    };
   }
 }
