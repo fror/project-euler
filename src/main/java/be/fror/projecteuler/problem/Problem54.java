@@ -68,9 +68,9 @@ public class Problem54 extends AbstractProblem {
       Card[] cards = (Card[]) Arrays.stream(line.split(" ")).map(Card::of).toArray();
       Hand left = new Hand(Arrays.copyOfRange(cards, 0, 5));
       Hand right = new Hand(Arrays.copyOfRange(cards, 5, 10));
-      if (handComparator().compare(left, right) > 0) {
-        count++;
-      }
+//      if (handComparator().compare(left, right) > 0) {
+//        count++;
+//      }
     }
     return count;
   }
@@ -176,7 +176,7 @@ public class Problem54 extends AbstractProblem {
       if (straight && flush) {
         return new int[]{8, cards[0].rank.ordinal()};
       }
-      if ()
+      return null;
     }
   }
 
