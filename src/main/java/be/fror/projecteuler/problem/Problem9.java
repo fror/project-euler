@@ -33,14 +33,18 @@ public class Problem9 extends AbstractProblem {
 
   @Override
   public Object solve() {
-    final int limit = 1000;
-    int[] squares = new int[limit + 1];
-    for (int i = 1, isq = 1; i < squares.length; i++, isq += i + i - 1) {
-      squares[i] = isq;
-    }
-    for (int a = limit / 3; a >= 1; a--) {
-      for (int b = a + 1, c = limit - a - b; b < c; b++, c--) {
-        if (squares[a] + squares[b] == squares[c]) {
+    return primitive(1000);
+  }
+
+  private int fastNaive(final int targetSum) {
+    double sqrt2 = Math.sqrt(2);
+    for (int c = (int) (targetSum * sqrt2 / (2 + sqrt2)), C = targetSum / 2 + 1; c < C; c++) {
+      for (int a = Math.max(1, targetSum - c - c +   1),
+          A = Math.min(targetSum / 3, (targetSum - c) / 2);
+          a < A;
+          a++) {
+        int b = targetSum - c - a;
+        if (a * a + b * b == c * c) {
           return a * b * c;
         }
       }
@@ -48,4 +52,20 @@ public class Problem9 extends AbstractProblem {
     throw new AssertionError();
   }
 
+  private int primitive(int targetSum) {
+    int a, b, c;
+    int x = 3;
+    do {
+      a = x++;
+      if ((a & 1) != 0) {
+        b = a * a / 2;
+        c = b + 1;
+      } else {
+        b = a * a / 4 - 1;
+        c = b + 2;
+      }
+    } while (targetSum % (a + b + c) != 0);
+    int k = targetSum / (a + b + c);
+    return a * b * c * k * k * k;
+  }
 }
