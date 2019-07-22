@@ -23,23 +23,21 @@ package be.fror.projecteuler.problem;
  * <p>
  * By considering the terms in the Fibonacci sequence whose values do not exceed four million, find
  * the sum of the even-valued terms.</p>
- * 
+ *
  * @author Olivier Grégoire &lt;fror@users.noreply.github.com&gt;
  */
 public class Problem2 extends AbstractProblem {
 
-  @Override
-  public Object solve() {
-    final int N = 4000000;
+    @Override
+    public Object solve() {
+        final int N = 4_000_000;
 
-    int sum = 0;
+        int sum = 0;
 
-    for (int a = 1, b = 2, tmp; b <= N; tmp = a + b, a = b, b = tmp) {
-      if ((b & 1) == 0) {
-        sum += b;
-      }
+        for (int a = 1, b = 2, tmp; b <= N; tmp = a + b, a = b, b = tmp) {
+            sum += b * (b & 1 ^ 1);
+        }
+        return sum;
     }
-    return sum;
-  }
 
 }
