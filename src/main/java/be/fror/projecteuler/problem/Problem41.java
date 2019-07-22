@@ -30,7 +30,7 @@ public class Problem41 extends AbstractProblem {
         for (int i : perm) {
           n = n * 10 + i;
         }
-        if (Primes.isPrime(n) && n > max) {
+        if (n > max && Primes.isPrime(n)) {
           max = n;
         }
       }
