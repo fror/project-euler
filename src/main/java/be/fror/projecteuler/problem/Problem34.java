@@ -16,15 +16,12 @@ public class Problem34 extends AbstractProblem {
     int[] factorials = {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880};
     final int max = 50000;
     int result = 0;
-    for (int i = 3; i <= max; i++) {
+    for (int sumOfDigits = 3; sumOfDigits <= max; sumOfDigits++) {
       int sum = 0;
-      for (int n = i; n > 0; n /= 10) {
-        sum += factorials[n % 10];
-        if (sum > i) {
-          break;
-        }
+      for (int x = sumOfDigits; x > 0 && sum <= sumOfDigits; x /= 10) {
+        sum += factorials[x % 10];
       }
-      if (sum == i) {
+      if (sum == sumOfDigits) {
         result += sum;
       }
     }
