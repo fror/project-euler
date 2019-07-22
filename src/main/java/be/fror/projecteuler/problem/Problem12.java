@@ -5,8 +5,6 @@
  */
 package be.fror.projecteuler.problem;
 
-import be.fror.projecteuler.math.Primes;
-
 /**
  *
  * @author Olivier Grégoire
@@ -27,7 +25,7 @@ public class Problem12 extends AbstractProblem {
     }
   }
 
-  final static int[] primes = Primes.basicSieve(20);
+  final static int[] primes = { 2, 3, 5, 7, 11, 13, 17 }; /*Primes.basicSieve(20)*/
 
   public int countDivisors(int number) {
     int count = 1;
@@ -45,9 +43,6 @@ public class Problem12 extends AbstractProblem {
           number = q;
         }
         count *= pn;
-//        if (number == 1) {
-//          return count;
-//        }
       }
     }
     return count;
