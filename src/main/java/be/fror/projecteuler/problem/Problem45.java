@@ -13,18 +13,15 @@ public class Problem45 extends AbstractProblem {
 
   @Override
   public Object solve() {
-    long np = 143, nh = 165;
-    while(true) {
-      nh++;
-      long h = nh * (2 * nh - 1);
-      long p;
-      do {
-        p = np * (3 * np - 1) / 2;
-        np++;
-      } while (p < h);
-      if (p == h) {
-        return p;
-      }
+    long p = 7;
+    long s = 2;
+    {
+      long tmp = p;
+      p = 7 * p + 24 * s;
+      s = 7 * s + 2 * tmp;
     }
+    long index = p * p + 5 * p * s + 6 * s * s;
+    return index * (index * 2 - 1);
   }
+
 }

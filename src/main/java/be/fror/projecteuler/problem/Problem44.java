@@ -5,28 +5,29 @@
  */
 package be.fror.projecteuler.problem;
 
-import java.util.Arrays;
+import static java.lang.Math.sqrt;
 
 /**
- *
  * @author Olivier Grégoire
  */
 public class Problem44 extends AbstractProblem {
 
-  @Override
-  public Object solve() {
-    int[] p = new int[3000];
-    for (int i = 0; i < p.length; i++) {
-      p[i] = i * (i * 3 - 1) / 2;
-    }
-    int n = Integer.MAX_VALUE;
-    for (int i = 1; i < p.length; i++) {
-      for (int j = 1; j < i; j++) {
-        if (Arrays.binarySearch(p, p[i] - p[j]) >= 0 && Arrays.binarySearch(p, p[i] + p[j]) >= 0) {
-          return p[i] - p[j];
+    @Override
+    public Object solve() {
+        int i = 0;
+        int D = 0;
+        while (true) {
+            D += 3 * i + 1;
+            i++;
+            for (int Pd = 0, d = 1; d < i; d++) {
+                int x = 3 * d;
+                Pd += x - 2;
+                int j = (D - Pd) / x;
+                if (D - Pd == j * x && sqrt(((3 * j - 1) * j + D) * 24 + 1) % 6 == 5) {
+                    return D;
+                }
+            }
         }
-      }
     }
-    return null;
-  }
+
 }
