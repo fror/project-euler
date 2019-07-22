@@ -21,15 +21,20 @@ package be.fror.projecteuler.problem;
  * The sum of these multiples is 23.</p>
  * <p>
  * Find the sum of all the multiples of 3 or 5 below 1000.</p>
- * 
+ *
  * @author Olivier Grégoire &lt;fror@users.noreply.github.com&gt;
  */
 public class Problem1 extends AbstractProblem {
 
-  @Override
-  public Object solve() {
-    int MAX = 999;
-    int n3 = MAX / 3, n5 = MAX / 5, n15 = MAX / 15;
-    return ((n3 * (n3 + 1) * 3) + (n5 * (n5 + 1) * 5) - (n15 * (n15 + 1) * 15)) / 2;
-  }
+    @Override
+    public Object solve() {
+        int MAX = 999;
+        return sumOfMultiples(3, MAX) + sumOfMultiples(5, MAX) - sumOfMultiples(3 * 5, MAX);
+    }
+
+    private int sumOfMultiples(int n, int max) {
+        int nMax = max / n;
+        return nMax * (nMax + 1) / 2 * n;
+    }
+
 }
