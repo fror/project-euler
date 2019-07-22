@@ -7,6 +7,7 @@ package be.fror.projecteuler;
 
 import com.google.common.base.Stopwatch;
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
 
 /**
  *
@@ -14,8 +15,9 @@ import com.google.inject.AbstractModule;
  */
 public class TimeModule extends AbstractModule {
 
-  @Override
-  protected void configure() {
-    bind(Stopwatch.class);
+  @Provides
+  Stopwatch provideStopwatch() {
+    return Stopwatch.createUnstarted();
   }
+
 }

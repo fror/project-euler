@@ -9,6 +9,9 @@ import com.google.common.util.concurrent.SimpleTimeLimiter;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.common.util.concurrent.TimeLimiter;
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
+
 import java.util.concurrent.ExecutorService;
 import static java.util.concurrent.Executors.newFixedThreadPool;
 import java.util.concurrent.ThreadFactory;
@@ -19,17 +22,15 @@ import java.util.concurrent.ThreadFactory;
  */
 public class ApplicationModule extends AbstractModule {
 
-  @Override
-  protected void configure() {
+  @Provides
+  @Singleton
+  TimeLimiter provideTimeLimiter() {
     ThreadFactory threadFactory = new ThreadFactoryBuilder()
-        .setDaemon(true)
-        .setNameFormat("problem-thread-%d")
-        .build();
+            .setDaemon(true)
+            .setNameFormat("problem-thread-%d")
+            .build();
     ExecutorService executor = newFixedThreadPool(4, threadFactory);
-
-    bind(TimeLimiter.class).toInstance(new SimpleTimeLimiter(executor));
-    bind(ProblemFactory.class);
-    bind(ProblemRunner.class);
-    bind(Application.class);
+    return SimpleTimeLimiter.create(executor);
   }
+
 }

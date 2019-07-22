@@ -6,18 +6,27 @@
 package be.fror.projecteuler;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
+
+import javax.inject.Singleton;
 import java.io.PrintStream;
 import java.util.Scanner;
 
 /**
- *
  * @author Olivier Grégoire
  */
 public class IOModule extends AbstractModule {
 
-  @Override
-  protected void configure() {
-    bind(PrintStream.class).toInstance(System.out);
-    bind(Scanner.class).toInstance(new Scanner(System.in));
-  }
+    @Provides
+    @Singleton
+    PrintStream providePrintStream() {
+        return System.out;
+    }
+
+    @Provides
+    @Singleton
+    Scanner provideScanner() {
+        return new Scanner(System.in);
+    }
+
 }

@@ -18,7 +18,8 @@ public class Problem25 extends AbstractProblem {
   @Override
   public Object solve() {
     int N = 1000;
-    double sqrt5 = sqrt(5);
-    return (int) ceil((N - 1 + log10(sqrt5)) / log10((1 + sqrt5) / 2));
+    double phi = (1.0 + sqrt(5.0)) / 2.0;
+    return (int) ceil((N + log10(5.0) / 2.0 - 1.0) / log10(phi));
   }
+
 }
